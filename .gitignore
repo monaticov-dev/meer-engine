@@ -6,3 +6,5 @@ logs/
 build/
 tools/mingit/
 *.log
+/eula.txt 
+/server.properties 
