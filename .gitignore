@@ -8,3 +8,4 @@ tools/mingit/
 *.log
 /eula.txt 
 /server.properties 
+dist/ 
