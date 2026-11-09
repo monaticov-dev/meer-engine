@@ -44,3 +44,11 @@
 - HW probe по факту (D-012): cpu_cores=12, ram 15772 МБ, GPU = AMD Radeon Graphics, **GL 3.3.0 Core Profile**, драйвер 26.5.2 → modern-core путь строим под 3.3+ (не 4.6: драйвер не даёт), compat-фолбэк всё равно закладывается.
 - Окно готово за 506 мс. Скриншот окна не удался (фокус) — лог-фактура полная; визуальное подтверждение окна переносим в M1 (там рендер сцены важнее).
 - Специальные замечания JDK 27: Unsafe-warning от LWJGL (deprecated) — для финальной сборки jlink-рантайма это учтём (флаги/редакция загрузки нативов), сейчас не мешает.
+
+## 2026-11-10 (продолжение 3) — M1-core GREEN
+- B2 волна #2 (реестр): **материалов 726** (Materials.java), **59 adder-методов** рецептов (GT_RecipeAdder, gregtech/common), 92 map-строки в GT_Recipe.java, **68 ctor-вызовов жил** (layers+small) в GT_Worldgenloader.java. Таблицы в docs/gt/ (machines.csv 88 строк, materials.txt 726, recipeadder_methods.txt 59, loaders.txt).
+- S1-core написан и проверен: src/shared/net/meer/proto/Proto.java (framing v1: [len][type][payload], MAX_FRAME guard), src/server/.../ServerMain.java (авторитетный мир 128×64×128, генерация heightmap, bind 0.0.0.0, LAN IPs, --public-ip JOIN_ADDRESS, virtual threads на соединения, HELLO→WELCOME→CHUNK full snapshot), src/client/.../ClientMain.java (GL 3.3 core renderer, шейдеры, MVP, fly-камера WASD+мышь, face culling по соседям).
+- Баги и фиксы (для истории): (1) серверный hello-чек 7→8 байт; (2) клиентский парс WELCOME/CHUNK — ручные офсеты били мимо type-байта → переход на потоковый разбор.
+- **M1-core результат**: клиент получил снапшот 128×64×128 (1 МиБ) от сервера и отрендерил его — скриншот benchmarks/M1-world-render.png (зелёные холмы в окне «MEER client»). Клиент ноль симуляции (D-005 соблюдён: display-only + MOVE-intent).
+- Baseline-узкие места зафиксированы (для S2/S3): 14,011,764 вершин в одном draw call (наивный меш), 20–38 FPS на iGPU без frustum/occlusion culling; snapshot = полный мир 1 МиБ без дельт/AOI.
+- Git push: monaticov-dev/meer-engine main.
