@@ -52,3 +52,11 @@
 - **M1-core результат**: клиент получил снапшот 128×64×128 (1 МиБ) от сервера и отрендерил его — скриншот benchmarks/M1-world-render.png (зелёные холмы в окне «MEER client»). Клиент ноль симуляции (D-005 соблюдён: display-only + MOVE-intent).
 - Baseline-узкие места зафиксированы (для S2/S3): 14,011,764 вершин в одном draw call (наивный меш), 20–38 FPS на iGPU без frustum/occlusion culling; snapshot = полный мир 1 МиБ без дельт/AOI.
 - Git push: monaticov-dev/meer-engine main.
+
+## 2026-11-10 (продолжение 4) — REAL package + pivot к старейшим версиям
+- dist\minecraft-1.7.10-real собран и ПРОВЕРЕН ИГРОЙ: сервер Done 3,228s; клиент автоподключился (--server/--port), «Player joined the game», скриншот real-minecraft-joined.png (текстуры, свиньи, hotbar). Ассеты 1.7.10: 686 записей индекса → 674 уникальных хеша — скачаны все (107 МБ). Инцидент git: dist-бинарники попали в индекс → коммит переписан (reset --soft), push отклонён GitHub по 139МБ jre-модулю до переписи — на GitHub чисто (3ddc521).
+- Запрос пользователя: «меняем в корне все», все версии до 1.5.2, самая младшая, папки на Desktop\min, portable, только релизы.
+- Выдан список: 84 версии rd-132211…1.5.2; после «только релизы» — 16 релизных папок (1.0…1.5.2) на Desktop\min\ (нерелизные удалены).
+- Самая младшая релизная = **1.0 (2011-11-17)**: client.jar 2,36 МБ SHA1=b679fea2…✓; libs 9 (lwjgl 2.9.0, jinput, launchwrapper 1.5 — не нужен: в jar есть прямой main у net.minecraft.client.Minecraft); natives извлечены; подвох найден: lwjgl_util-2.9.0.jar на libraries.minecraft.net = артефакт с подчёркиванием (lwjgl-util… = HTML 404, 215 байт) → NoClassDefFoundError GLU → исправлено.
+- **Minecraft 1.0 запущена portable** (`Desktop\min\1.0\start.cmd`, общая `min\_jre\` = JDK 27): 27 achievements / 174 recipes / OpenAL ок / процесс 570 МБ / скриншот пауза-меню в мире (minecraft-1.0-running.png). s3.amazonaws.com skin-404 — безвреден (dead CDN).
+- D-015 зафиксирован: база = 1.0 release; GT-трек заморожен до решения пользователя (GT физически невозможен на 1.0).
