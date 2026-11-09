@@ -8,11 +8,12 @@
 у нас) → VER (проверено матрицей). Непроверенное = непроверенное.
 
 ## Источник фактуры (скан 2026-11-10, снапшот 77a3c956)
-- src/main/java/gregtech/common/tileentities: 111 позиций пути (machines 83, из них multi 45, basic 19)
+- src/main/java/gregtech/common/tileentities: машины **80 .java** (multi **45**, basic **19**, steam **12**), генераторы **9**, storage **3**
+- Всего .java в src/main/java GT5u: **626**
 - api/enums: Materials.java, OrePrefixes.java, ItemList.java, Tier.java (LV–UV), Dyes, Element, TextureSet
 - worldgen: GT_Worldgen_GT_Ore_Layer (слой-жилы), GT_Worldgen_GT_Ore_SmallPieces (мелкие руды), GT_Worldgen_Stone, GT_UndergroundOil, GT_Pollution, GT_Worldgenerator
 - api/metatileentity/implementations: 27 файлов (базовые MetaTileEntity)
-- Точный подсчёт .java и полный список классов — волна сканирования #2 (см. WORK_LOG)
+- Волна сканирования #2 (детальная инвентаризация машин/рецептов/материалов/жил в таблицы) — в работе
 
 ## Разделы (каждый — отдельная волна инвентаризации; НЕ выдумывать, только из источника)
 1. Машины простые/сложные (basic machines, steam, генераторы)

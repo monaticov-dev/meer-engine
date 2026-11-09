@@ -35,3 +35,12 @@
 - **M0-СЕРВЕР GREEN**: vanilla 1.7.10 dedicated server на JDK 27, "Done (3,016s)!", world/ создан. Первый запуск был с eula=false (сервер сам перезаписал файл) → Set-Content eula=true.
 - **M0-КЛИЕНТ GREEN**: титульный экран рендерится (скриншот benchmarks/M0-title-screen.png): LWJGL 2.9.1 + атласы + звук + меню. Требуются флаги: --enable-native-access=ALL-UNNAMED, полный набор аргументов (--uuid/--accessToken/--userProperties/--userType). Twitch-ошибка безопасна (вырежем).
 - Клиент процесс: 458 МБ RSS на -Xmx1G (замер зафиксирован).
+
+## 2026-11-10 (продолжение 2) — S1-прототип GREEN
+- GitHub: репо создан monaticov-dev/meer-engine (приватный), remote через токен, main запушен (7307663). Токен пользователя в истории чата — отозвать/ротировать (уведомлён).
+- LWJGL3: metadata-листинг Central нестабилен в этой среде → HEAD-пробы: 3.3.6 доступна (3.3.7 нет). Скачано 6 jar (core/glfw/opengl + natives-windows) в runtime/libs3.
+- GT5u скан #1 (фактура для реестра): tileentities/machines 80 .java (multi 45, basic 19, steam 12), generators 9, storage 3; всего 626 .java в src/main/java.
+- Свой bootstrap написан и работает (src/bootstrap/net/meer/boot/): BootClient (GLFW 1280x720, vsync, loop 61 FPS, ESC-exit), BootServer (bind 0.0.0.0:port, LAN-IP перечисление, --public-ip, JOIN_ADDRESS в консоль, framed ping/pong, guard длины кадра), BootPing (тест-клиент, rtt_us=24368 первый хоп).
+- HW probe по факту (D-012): cpu_cores=12, ram 15772 МБ, GPU = AMD Radeon Graphics, **GL 3.3.0 Core Profile**, драйвер 26.5.2 → modern-core путь строим под 3.3+ (не 4.6: драйвер не даёт), compat-фолбэк всё равно закладывается.
+- Окно готово за 506 мс. Скриншот окна не удался (фокус) — лог-фактура полная; визуальное подтверждение окна переносим в M1 (там рендер сцены важнее).
+- Специальные замечания JDK 27: Unsafe-warning от LWJGL (deprecated) — для финальной сборки jlink-рантайма это учтём (флаги/редакция загрузки нативов), сейчас не мешает.
