@@ -1,0 +1,8 @@
+downloads/
+runtime/
+cache/
+temp/
+logs/
+build/
+tools/mingit/
+*.log
