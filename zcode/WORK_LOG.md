@@ -23,3 +23,15 @@
 - GT5u: полный список тегов получен по git-протоколу — тега 5.09.31 НЕТ; серия 30.01–30.10, затем 33.01/33.02 (финал). Releases.atom: свежие = Alk-2, Alk-1, 5.09.30.10… → пиннинг: tag 5.09.33.02 как baseline (девиация от «5.09.31» зафиксирована в DECISIONS D-003).
 - Спецификация §17 (GTNH = источник идей) и §18 (полностью свой клиент-терминал) + интернет-сервер (bind 0.0.0.0, авто-проброс порта, печать IP:порт в консоль) — приняты, внесены в DECISIONS D-004/D-005/D-006.
 - Клон GT5u tag 5.09.33.02 запущен (фон).
+
+## 2026-11-10 (продолжение) — S0, M0 GREEN
+- GT5u клон завершён: commit 77a3c956e510b7c8ef4654054bcb16a0fccb86f7, 7824 файла; build.properties на теге: gt.version=5.09.31 → пин пользователя совпадает с снапшотом (D-003 закрыт как «совпадение по версии-строке»).
+- Скачан server-1.7.10.jar (9,6 МБ, SHA1 952438ac4e01b4d115c5fc38f891710c4941df29 = piston-meta ✓).
+- joined.srg распакован из deobfuscation_data-1.7.10.lzma (2 МБ); формат КОМПАКТНЫЙ (пробелы, без стрелок) — первый парсер (arrow) чинился дважды (guards, потом полный rewrite под компакт). Итог deobf.srg (arrow, для Vineflower): CL=1836 FD=6900 MD=13263 PK=7, skip=0; имена человеческие (getMapColor, canProvidePower...).
+- SpecialSource 1.11.6 падает на дескриптор-парсинге MCP-srg ("Unrecognized type in method descriptor: ;") → снят с критического пути (D-013).
+- Vineflower декомпиляция client+server с --deobfuscation-map: build/decomp/game-client, game-server (директории исходников net/...) ✓.
+- getlibs.ps1: первый прогон скачал 0 (отсутствие url-поля) → фикс дефолт URL; итог 29/33 + 2 natives-jar вручную; 4 natives-only 404 — не критичны.
+- Natives распакованы (lwjgl64/OpenAL64/jinput-dx8/raw/wintab) в runtime/natives.
+- **M0-СЕРВЕР GREEN**: vanilla 1.7.10 dedicated server на JDK 27, "Done (3,016s)!", world/ создан. Первый запуск был с eula=false (сервер сам перезаписал файл) → Set-Content eula=true.
+- **M0-КЛИЕНТ GREEN**: титульный экран рендерится (скриншот benchmarks/M0-title-screen.png): LWJGL 2.9.1 + атласы + звук + меню. Требуются флаги: --enable-native-access=ALL-UNNAMED, полный набор аргументов (--uuid/--accessToken/--userProperties/--userType). Twitch-ошибка безопасна (вырежем).
+- Клиент процесс: 458 МБ RSS на -Xmx1G (замер зафиксирован).
